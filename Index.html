@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="Files/style.css">
+  <title>Конструктор ДООП</title> 		<!-- НАЗВАНИЕ ВКЛАДКИ -->
+ </head>
+<header>
+<table>
+<tr><td><img src="Files\icons\4558252.PNG" align="left" HSPACE=25 VSPACE=10 width="80"></td>
+<td>МЕТОДИЧЕСКИЙ КОНСТРУКТОР ДОПОЛНИТЕЛЬНЫХ ОБЩЕОБРАЗОВАТЕЛЬНЫХ ОБЩЕРАЗВИВАЮЩИХ ПРОГРАММ</td>
+</tr></table>
+</header>
+ <body>
+    <ul id="navbar">
+      <li><a href="#">Главная</a></li>
+      <li><a href="#">Новости</a></li>
+      <li><a href="#">Контакты</a></li>
+      <li><a href="#">О нас</a></li>
+    </ul>
+<div class="box">				<!-- ОСНОВНОЕ СОДЕРЖИМОЕ СТРАНИЦЫ-->
+This is the main content of the page.
+<table class="table">				<!-- НАЧАЛО ТАБЛИЦЫ -->
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>ZIP</th>
+			<th>Birthday</th>
+			<th>Points</th>
+			<th>Average</th>
+			<th>Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Gloria</td>
+			<td>Reeves</td>
+			<td>67439</td>
+			<td>10/18/1985</td>
+			<td>4</td>
+			<td>0.1</td>
+			<td>$50</td>
+		</tr>
+	</tbody>
+</table>
+<h1>Заголовок 1</h1>
+<h2>Заголовок 2</h2>
+<h3>Заголовок 3</h3>
+<p>Пример текста. Я совсем недавно начал(а) знакомиться с виртуальной жизнью, но мне по давней традиции тоже захотелось создать свою домашнюю страничку для моих новых виртуальных друзей и знакомых, чтобы они могли посмотреть мои фотографии, почитать обо мне, черкнуть пару строчек в мою гостевую книгу. А может и просто случайный посетитель вдруг захочет познакомится со мной, и у меня появться еще один виртуальный друг? :)</p>
+<details>
+<summary>Ля-ля-ля</summary>Подробности
+</details>
+<textarea>jjj</textarea>
+
+<input type="text" value="111"></input>
+<input type="button" onclick="printDiv('print-content')" value="Печать" ></input>
+
+<button onclick="copyText()" style="font-size:13px; padding:10px 20px; font-weight: 500"> Сформировать программу </button>
+<button onclick="copyDivToClipboard()" style="font-size:13px; padding:10px 20px; font-weight: 500"> Скопировать программу (для вставки в Word) </button> 
+<button onclick="printDiv('print-content')" value="Печать" style="font-size:13px; padding:10px 20px; font-weight: 500"> Печать программы </button> 
+<button onclick="Export2Doc(&#39;exportContent&#39;);" style="font-size:13px; padding:10px 20px; font-weight: 500">Скачать программу</button>
+<button type="reset"; formonvalidate; style="font-size:13px; padding:10px 20px; font-weight: 500"> Сбросить всё </button>
+<div id="print-content">				<!-- НАЧАЛО СКРИПТА ДЛЯ ПЕЧАТИ -->
+<div id="a" onclick="copyDivToClipboard()"> 		<!-- НАЧАЛО СКРИПТА ДЛЯ КОПИРОВАНИЯ -->
+<div class="containerDM-fluid">				<!-- СОБИРАЕМАЯ ИНФОРМАЦИЯ -->
+ <div class="demo_pnlouter">
+  <div class="rowDM">
+   <div class="col-lg-12-DM">
+    <div class="">
+     <div id="exportContent">СЮДА СОБИРАЕТСЯ ИНФА КОТОРАЯ БУДЕТ СОХРАНЯТЬСЯ, КОИПРОВАТЬСЯ, ПЕЧАТАТЬСЯ</div> 
+    </div>
+   </div>
+  </div>
+ </div>							<!-- КОНЕЦ СКРИПТА ДЛЯ КОПИРОВАНИЯ -->
+</div>
+</DIV></body>
+<script>
+<!--СКРИПТ ПЕЧАТИ-->
+  function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    w = window.open();
+    w.document.write(printContents);
+    w.print();
+    w.close();
+  }
+<!--СКРИПТ СБОРА ДАННЫХ-->
+  function copyText() {
+    var Text = document.getElementById("roiv");
+    Text.select();
+    navigator.clipboard.writeText(Text.value);
+    document.getElementById("c1")
+      .innerHTML = Text.value;
+  }
+<!--СКРИПТ КОПИРОВАНИЯ В БУФЕР ОБМЕНА-->
+  function copyDivToClipboard() {
+    var range = document.createRange();
+    range.selectNode(document.getElementById("a"));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges(); // to deselect
+  }
+<!--СКРИПТ СОХРАНЕНИЯ-->
+        $(window).scroll(function() {
+            if ( $(document).scrollTop() > $(".hdr_top").outerHeight() ) {
+            $('.header_outer').addClass('shrink');
+            } else {
+            $('.header_outer').removeClass('shrink');
+            }
+        });
+        </script>
+        <script>
+function Export2Doc(element, filename = ''){
+    //var html, link, blob, url, css;
+    
+    /*css = (
+      '<style>' +
+      '@page WordSection1{size: 841.95pt 595.35pt;mso-page-orientation: landscape;}' +
+      'div.WordSection1 {page: WordSection1;}' +
+      '</style>'
+    );*/
+    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    var postHtml = "</body></html>";
+    var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+
+    var blob = new Blob(['\ufeff', html], {
+        type: 'application/msword'
+    });
+    //var url = URL.createObjectURL(blob);
+    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+    
+    // Specify file name
+    filename = filename?filename+'.doc':'document.doc';
+    
+    // Create download link element
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob ){
+        navigator.msSaveOrOpenBlob(blob, filename); // IE10-11
+    }else{
+        // Create a link to the file
+        downloadLink.href = url;
+        // Setting the file name
+        downloadLink.download = filename;
+        //triggering the function
+        downloadLink.click();
+    }
+document.body.removeChild(downloadLink);
+}
+<!-- КОНЕЦ СКРИПТА СОХРАНЕНИЯ -->
+</script>
+<!-- <footer>© Анненков С.А., 2024</footer> -->
+</html>
